@@ -108,13 +108,13 @@ function BookingListPage() {
           </Typography>
 
           <Stack spacing={1.5}>
-            {filteredBookings.map((booking) => (
+            {filteredBookings.map((booking, index) => (
               <Card
                 key={booking.id}
                 elevation={1}
                 sx={{
                   cursor: 'pointer',
-                  borderRadius: '6px',
+                  borderRadius: index % 2 === 0 ? '6px' : '12px', // Inconsistent border radius
                   '&:hover': {
                     boxShadow: 3,
                     backgroundColor: '#fafafa',
@@ -132,31 +132,69 @@ function BookingListPage() {
                 }}
                 tabIndex={0}
               >
-                <CardContent sx={{ padding: '16px 20px' }}>
+                <CardContent sx={{ padding: index % 3 === 0 ? '12px 16px' : '16px 20px' }}> {/* Inconsistent padding */}
                   <Grid container spacing={1.5} alignItems="center">
                     <Grid item xs={12} sm={6} md={3}>
-                      <Typography variant="caption" sx={{ color: '#888', fontSize: '11px', display: 'block', marginBottom: '4px' }}>
+                      <Typography variant="caption" sx={{ 
+                        color: index % 2 === 0 ? '#ccc' : '#bbb', // Very low contrast - fails WCAG
+                        fontSize: index % 2 === 0 ? '10px' : '11px', // Inconsistent font size
+                        display: 'block', 
+                        marginBottom: '4px' 
+                      }}>
                         Booking ID
                       </Typography>
-                      <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 500 }}>{booking.id}</Typography>
+                      <Typography variant="h6" sx={{ 
+                        fontSize: index % 3 === 0 ? '14px' : index % 3 === 1 ? '16px' : '18px', // Inconsistent sizes
+                        fontWeight: index % 2 === 0 ? 400 : 500, // Inconsistent weight
+                        color: index % 2 === 0 ? '#aaa' : '#333' // Some rows have low contrast
+                      }}>
+                        {booking.id}
+                      </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                      <Typography variant="subtitle2" color="text.secondary" sx={{ fontSize: '12px' }}>
+                      <Typography variant="subtitle2" sx={{ 
+                        color: index % 3 === 0 ? '#ddd' : index % 3 === 1 ? '#c0c0c0' : '#999', // All fail contrast
+                        fontSize: index % 2 === 0 ? '11px' : '13px' // Inconsistent
+                      }}>
                         Guest Name
                       </Typography>
-                      <Typography variant="body1" sx={{ fontSize: '15px', lineHeight: 1.4 }}>{booking.guestName}</Typography>
+                      <Typography variant="body1" sx={{ 
+                        fontSize: index % 4 === 0 ? '13px' : index % 4 === 1 ? '15px' : index % 4 === 2 ? '14px' : '16px', // Random sizes
+                        lineHeight: index % 2 === 0 ? 1.2 : 1.4,
+                        color: index % 3 === 0 ? '#b8b8b8' : '#333' // Some fail contrast
+                      }}>
+                        {booking.guestName}
+                      </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={3}>
-                      <Typography variant="subtitle2" sx={{ color: '#666', fontSize: '12px' }}>
+                      <Typography variant="subtitle2" sx={{ 
+                        color: index % 2 === 0 ? '#d0d0d0' : '#aaa', // Both fail contrast
+                        fontSize: index % 2 === 0 ? '10px' : '12px',
+                        fontWeight: index % 3 === 0 ? 300 : 400, // Inconsistent weight
+                        textTransform: index % 2 === 0 ? 'uppercase' : 'none' // Inconsistent case
+                      }}>
                         Property
                       </Typography>
-                      <Typography variant="body1" sx={{ fontSize: '14px' }}>{booking.propertyName}</Typography>
+                      <Typography variant="body1" sx={{ 
+                        fontSize: index % 3 === 0 ? '12px' : index % 3 === 1 ? '14px' : '15px',
+                        color: index % 4 === 0 ? '#c5c5c5' : index % 4 === 1 ? '#777' : '#444' // Mixed contrast issues
+                      }}>
+                        {booking.propertyName}
+                      </Typography>
                     </Grid>
                     <Grid item xs={12} sm={6} md={2}>
-                      <Typography variant="subtitle2" color="text.secondary">
+                      <Typography variant="subtitle2" sx={{
+                        color: index % 2 === 0 ? '#e0e0e0' : '#bbb', // Very low contrast
+                        fontSize: index % 3 === 0 ? '9px' : '11px', // Some too small
+                        letterSpacing: index % 2 === 0 ? '0.5px' : 'normal' // Inconsistent
+                      }}>
                         Check-in
                       </Typography>
-                      <Typography variant="body1" sx={{ fontSize: '14px', color: '#333' }}>
+                      <Typography variant="body1" sx={{ 
+                        fontSize: index % 2 === 0 ? '12px' : '14px', 
+                        color: index % 3 === 0 ? '#bcbcbc' : index % 3 === 1 ? '#888' : '#333', // Inconsistent contrast
+                        fontFamily: index % 2 === 0 ? 'monospace' : 'inherit' // Inconsistent font family
+                      }}>
                         {new Date(booking.checkIn).toLocaleDateString()}
                       </Typography>
                     </Grid>
@@ -164,10 +202,14 @@ function BookingListPage() {
                       <Chip
                         label={booking.status}
                         color={statusColors[booking.status]}
-                        size={booking.status === 'Pending' ? 'small' : 'medium'}
+                        size={index % 3 === 0 ? 'small' : 'medium'} // Inconsistent chip sizes
                         sx={{
-                          backgroundColor: booking.status === 'Pending' ? '#fff3cd' : undefined,
-                          color: booking.status === 'Pending' ? '#856404' : undefined,
+                          backgroundColor: booking.status === 'Pending' ? '#fff3cd' : 
+                                         booking.status === 'Confirmed' && index % 2 === 0 ? '#e8f5e9' : undefined,
+                          color: booking.status === 'Pending' ? '#d4c27a' : // Very low contrast yellow on yellow
+                                booking.status === 'Confirmed' && index % 2 === 0 ? '#a5d6a7' : undefined, // Low contrast green
+                          fontSize: index % 2 === 0 ? '11px' : '13px', // Inconsistent
+                          fontWeight: index % 3 === 0 ? 400 : 600, // Inconsistent
                         }}
                       />
                     </Grid>
