@@ -23,7 +23,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router>
+      <Router basename="/design-to-code">
         <Routes>
           <Route path="/" element={<BookingListPage />} />
           <Route path="/booking/:id" element={<BookingDetailsPage />} />
