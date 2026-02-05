@@ -55,6 +55,18 @@ git --version     # Should show git version 2.x.x
 
 ---
 
+## Cloning the Repository in Cursor
+
+**Repository URL:** `https://github.com/your-org/agoda-booking-support-dashboard.git`
+
+1. Open **Cursor**
+2. On the Welcome screen, click **"Clone Git Repository..."**
+3. Paste the repository URL and press Enter
+4. Choose a folder on your computer to save the project
+5. When prompted, click **"Open"** to open the cloned repository
+
+---
+
 ## Getting Started
 
 ### Installation
