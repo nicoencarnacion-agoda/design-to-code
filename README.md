@@ -15,6 +15,46 @@ A simple internal training React app for managing mock bookings. This is a front
 - React Router v6
 - Vite (build tool)
 
+## Prerequisites (macOS)
+
+Before you begin, make sure you have the following installed on your machine:
+
+### 1. Homebrew
+
+Homebrew is a package manager for macOS that makes it easy to install software.
+
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+After installation, follow the instructions in the terminal to add Homebrew to your PATH.
+
+### 2. Node.js (v18 or higher recommended)
+
+Node.js is a JavaScript runtime that includes **npm** (Node Package Manager), which is used to install project dependencies.
+
+```bash
+brew install node
+```
+
+### 3. Git (optional, for cloning the repository)
+
+```bash
+brew install git
+```
+
+### Verify Installation
+
+After installing, verify everything is set up correctly:
+
+```bash
+node --version    # Should show v18.x.x or higher
+npm --version     # Should show 9.x.x or higher
+git --version     # Should show git version 2.x.x
+```
+
+---
+
 ## Getting Started
 
 ### Installation
