@@ -57,7 +57,7 @@ git --version     # Should show git version 2.x.x
 
 ## Cloning the Repository in Cursor
 
-**Repository URL:** `https://github.com/your-org/agoda-booking-support-dashboard.git`
+**Repository URL:** `https://github.com/nicoencarnacion-agoda/design-to-code.git`
 
 1. Open **Cursor**
 2. On the Welcome screen, click **"Clone Git Repository..."**
