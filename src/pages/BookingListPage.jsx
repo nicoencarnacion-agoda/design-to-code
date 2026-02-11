@@ -144,9 +144,9 @@ function BookingListPage() {
                         Booking ID
                       </Typography>
                       <Typography variant="h6" sx={{ 
-                        fontSize: index % 3 === 0 ? '14px' : index % 3 === 1 ? '16px' : '18px', // Inconsistent sizes
-                        fontWeight: index % 2 === 0 ? 400 : 500, // Inconsistent weight
-                        color: index % 2 === 0 ? '#aaa' : '#333' // Some rows have low contrast
+                        fontSize: '18px',
+                        fontWeight: 500,
+                        color: booking.status === 'Cancelled' ? '#B8B8B8' : '#333'
                       }}>
                         {booking.id}
                       </Typography>
