@@ -19,10 +19,10 @@ import {
 } from '@mui/material';
 import { mockBookings } from '../data/mockBookings';
 
-// Inconsistent status colors - some use theme colors, others use hardcoded hex
+// Theme palette keys for filled chips (solid bg + contrast text, same style as Cancelled)
 const statusColors = {
   Confirmed: 'success',
-  Pending: 'warning', // This will be overridden with low contrast color
+  Pending: 'warning',
   Cancelled: 'error',
 };
 
@@ -128,7 +128,7 @@ function BookingListPage() {
               >
                 <CardContent sx={{ padding: index % 3 === 0 ? '12px 16px' : '16px 20px' }}> {/* Inconsistent padding */}
                   <Grid container spacing={1.5} alignItems="center">
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
                       <Typography variant="caption" sx={{ 
                         color: index % 2 === 0 ? '#ccc' : '#bbb', // Very low contrast - fails WCAG
                         fontSize: index % 2 === 0 ? '10px' : '11px', // Inconsistent font size
@@ -145,7 +145,7 @@ function BookingListPage() {
                         {booking.id}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3} sx={{ minWidth: 0 }}>
                       <Typography variant="subtitle2" sx={{ 
                         color: index % 3 === 0 ? '#ddd' : index % 3 === 1 ? '#c0c0c0' : '#999', // All fail contrast
                         fontSize: index % 2 === 0 ? '11px' : '13px' // Inconsistent
@@ -160,7 +160,7 @@ function BookingListPage() {
                         {booking.guestName}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3} sx={{ minWidth: 0 }}>
                       <Typography variant="subtitle2" sx={{ 
                         color: index % 2 === 0 ? '#d0d0d0' : '#aaa', // Both fail contrast
                         fontSize: index % 2 === 0 ? '10px' : '12px',
@@ -176,7 +176,7 @@ function BookingListPage() {
                         {booking.propertyName}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={2}>
+                    <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
                       <Typography variant="subtitle2" sx={{
                         color: index % 2 === 0 ? '#e0e0e0' : '#bbb', // Very low contrast
                         fontSize: index % 3 === 0 ? '9px' : '11px', // Some too small
@@ -192,18 +192,19 @@ function BookingListPage() {
                         {new Date(booking.checkIn).toLocaleDateString()}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={1}>
+                    <Grid item xs={12} sm={6} md={2} sx={{ flexShrink: 0 }}>
                       <Chip
                         label={booking.status}
                         color={statusColors[booking.status]}
-                        size={index % 3 === 0 ? 'small' : 'medium'} // Inconsistent chip sizes
+                        size="medium"
+                        variant="filled"
                         sx={{
-                          backgroundColor: booking.status === 'Pending' ? '#fff3cd' : 
-                                         booking.status === 'Confirmed' && index % 2 === 0 ? '#e8f5e9' : undefined,
-                          color: booking.status === 'Pending' ? '#d4c27a' : // Very low contrast yellow on yellow
-                                booking.status === 'Confirmed' && index % 2 === 0 ? '#a5d6a7' : undefined, // Low contrast green
-                          fontSize: index % 2 === 0 ? '11px' : '13px', // Inconsistent
-                          fontWeight: index % 3 === 0 ? 400 : 600, // Inconsistent
+                          minWidth: 'fit-content',
+                          '& .MuiChip-label': {
+                            overflow: 'visible',
+                            textOverflow: 'clip',
+                            whiteSpace: 'nowrap',
+                          },
                         }}
                       />
                     </Grid>
