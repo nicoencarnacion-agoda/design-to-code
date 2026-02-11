@@ -65,7 +65,7 @@ function BookingListPage() {
             Bookings
           </Typography>
 
-          <Grid container spacing={1.5}>
+          <Grid container spacing={1.5} sx={{ mt: '4px', mb: '4px' }}>
             <Grid item xs={12} md={8}>
               <TextField
                 fullWidth
