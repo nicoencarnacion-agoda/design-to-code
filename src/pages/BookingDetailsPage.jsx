@@ -21,13 +21,7 @@ import {
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { mockBookings } from '../data/mockBookings';
-
-// Different status color mapping than BookingListPage - inconsistency!
-const statusColors = {
-  Confirmed: 'success',
-  Pending: '#ffc107', // Hardcoded hex instead of theme color
-  Cancelled: '#f44336', // Hardcoded hex instead of theme color
-};
+import { getStatusChipSx } from '../constants/bookingStatus';
 
 function BookingDetailsPage() {
   const { id } = useParams();
@@ -117,13 +111,8 @@ function BookingDetailsPage() {
             </Typography>
             <Chip
               label={booking.status}
-              sx={{
-                backgroundColor: statusColors[booking.status] === 'success' ? undefined : statusColors[booking.status],
-                color: statusColors[booking.status] === 'success' ? undefined : '#fff',
-                fontSize: '13px',
-                height: '32px',
-              }}
               size="medium"
+              sx={getStatusChipSx(booking.status)}
             />
           </Box>
 

@@ -18,13 +18,7 @@ import {
   Grid,
 } from '@mui/material';
 import { mockBookings } from '../data/mockBookings';
-
-// Inconsistent status colors - some use theme colors, others use hardcoded hex
-const statusColors = {
-  Confirmed: 'success',
-  Pending: 'warning', // This will be overridden with low contrast color
-  Cancelled: 'error',
-};
+import { getStatusChipSx } from '../constants/bookingStatus';
 
 function BookingListPage() {
   const navigate = useNavigate();
@@ -201,16 +195,8 @@ function BookingListPage() {
                     <Grid item xs={12} sm={6} md={1}>
                       <Chip
                         label={booking.status}
-                        color={statusColors[booking.status]}
-                        size={index % 3 === 0 ? 'small' : 'medium'} // Inconsistent chip sizes
-                        sx={{
-                          backgroundColor: booking.status === 'Pending' ? '#fff3cd' : 
-                                         booking.status === 'Confirmed' && index % 2 === 0 ? '#e8f5e9' : undefined,
-                          color: booking.status === 'Pending' ? '#d4c27a' : // Very low contrast yellow on yellow
-                                booking.status === 'Confirmed' && index % 2 === 0 ? '#a5d6a7' : undefined, // Low contrast green
-                          fontSize: index % 2 === 0 ? '11px' : '13px', // Inconsistent
-                          fontWeight: index % 3 === 0 ? 400 : 600, // Inconsistent
-                        }}
+                        size="medium"
+                        sx={getStatusChipSx(booking.status)}
                       />
                     </Grid>
                   </Grid>
