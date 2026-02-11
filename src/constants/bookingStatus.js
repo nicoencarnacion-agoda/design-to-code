@@ -22,4 +22,10 @@ export const getStatusChipSx = (status) => ({
   fontSize: '13px',
   fontWeight: 500,
   height: '32px',
+  whiteSpace: 'nowrap',
+  overflow: 'visible',
+  '& .MuiChip-label': {
+    overflow: 'visible',
+    whiteSpace: 'nowrap',
+  },
 });

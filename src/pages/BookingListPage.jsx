@@ -127,8 +127,8 @@ function BookingListPage() {
                 tabIndex={0}
               >
                 <CardContent sx={{ padding: index % 3 === 0 ? '12px 16px' : '16px 20px' }}> {/* Inconsistent padding */}
-                  <Grid container spacing={1.5} alignItems="center">
-                    <Grid item xs={12} sm={6} md={3}>
+                  <Grid container spacing={1.5} alignItems="center" sx={{ flexWrap: { md: 'nowrap' } }}>
+                    <Grid item xs={12} sm={6} md={2}>
                       <Typography variant="caption" sx={{ 
                         color: index % 2 === 0 ? '#ccc' : '#bbb', // Very low contrast - fails WCAG
                         fontSize: index % 2 === 0 ? '10px' : '11px', // Inconsistent font size
@@ -192,7 +192,17 @@ function BookingListPage() {
                         {new Date(booking.checkIn).toLocaleDateString()}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={1}>
+                    <Grid
+                      item
+                      xs={12}
+                      sm={6}
+                      md={2}
+                      sx={{
+                        minWidth: { md: 0 },
+                        display: { md: 'flex' },
+                        justifyContent: { md: 'flex-end' },
+                      }}
+                    >
                       <Chip
                         label={booking.status}
                         size="medium"
