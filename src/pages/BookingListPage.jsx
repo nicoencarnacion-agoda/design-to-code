@@ -71,16 +71,10 @@ function BookingListPage() {
                 fullWidth
                 label="Search bookings"
                 variant="filled"
-                size="small"
+                size=""
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search by booking ID, guest name, or property..."
-                sx={{ 
-                  '& .MuiInputBase-input': { 
-                    fontSize: '14px',
-                    padding: '10px 12px'
-                  }
-                }}
                 // Missing aria-label for screen readers
               />
             </Grid>
