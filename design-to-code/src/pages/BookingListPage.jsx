@@ -11,11 +11,16 @@ import {
   FormControl,
   InputLabel,
   Chip,
-  Card,
-  CardContent,
   Stack,
   Box,
   Grid,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
 } from '@mui/material';
 import { mockBookings } from '../data/mockBookings';
 
@@ -101,90 +106,60 @@ function BookingListPage() {
             Showing {filteredBookings.length} booking(s)
           </Typography>
 
-          <Stack spacing={1.5}>
-            {filteredBookings.map((booking, index) => (
-              <Card
-                key={booking.id}
-                elevation={1}
-                sx={{
-                  cursor: 'pointer',
-                  borderRadius: '8px',
-                  '&:hover': {
-                    boxShadow: 3,
-                    backgroundColor: '#fafafa',
-                  },
-                  '&:focus': {
-                    outline: '1px solid #1976d2',
-                    outlineOffset: '2px',
-                  },
-                }}
-                onClick={() => handleBookingClick(booking.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    handleBookingClick(booking.id);
-                  }
-                }}
-                tabIndex={0}
-              >
-                <CardContent sx={{ padding: '16px 20px' }}>
-                  <Grid container spacing={1.5} alignItems="center">
-                    <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
-                      <Typography variant="subtitle2" sx={{ 
-                        color: 'text.secondary',
-                        display: 'block', 
-                        marginBottom: '4px' 
-                      }}>
-                        Booking ID
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: 'text.primary', fontSize: '14px' }}>
-                        {booking.id}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} sx={{ minWidth: 0 }}>
-                      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                        Guest Name
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: 'text.primary', fontSize: '14px' }}>
-                        {booking.guestName}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={3} sx={{ minWidth: 0 }}>
-                      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                        Property
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: 'text.primary', fontSize: '14px' }}>
-                        {booking.propertyName}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
-                      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-                        Check-in
-                      </Typography>
-                      <Typography variant="body1" sx={{ color: 'text.primary', fontSize: '14px' }}>
-                        {new Date(booking.checkIn).toLocaleDateString()}
-                      </Typography>
-                    </Grid>
-                    <Grid item xs={12} sm={6} md={2} sx={{ flexShrink: 0 }}>
+          <TableContainer
+            component={Paper}
+            elevation={1}
+            sx={{ borderRadius: '8px', overflow: 'hidden' }}
+          >
+            <Table aria-label="Bookings list">
+              <TableHead>
+                <TableRow sx={{ backgroundColor: '#f5f5f5' }}>
+                  <TableCell sx={{ fontWeight: 600, fontSize: '14px' }}>Booking ID</TableCell>
+                  <TableCell sx={{ fontWeight: 600, fontSize: '14px' }}>Guest Name</TableCell>
+                  <TableCell sx={{ fontWeight: 600, fontSize: '14px' }}>Property</TableCell>
+                  <TableCell sx={{ fontWeight: 600, fontSize: '14px' }}>Check-in</TableCell>
+                  <TableCell sx={{ fontWeight: 600, fontSize: '14px' }}>Status</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {filteredBookings.map((booking) => (
+                  <TableRow
+                    key={booking.id}
+                    hover
+                    sx={{
+                      cursor: 'pointer',
+                      '&:focus': {
+                        outline: '1px solid #1976d2',
+                        outlineOffset: '-1px',
+                      },
+                    }}
+                    onClick={() => handleBookingClick(booking.id)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        handleBookingClick(booking.id);
+                      }
+                    }}
+                    tabIndex={0}
+                    role="button"
+                  >
+                    <TableCell sx={{ fontSize: '14px' }}>{booking.id}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{booking.guestName}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{booking.propertyName}</TableCell>
+                    <TableCell sx={{ fontSize: '14px' }}>{new Date(booking.checkIn).toLocaleDateString()}</TableCell>
+                    <TableCell>
                       <Chip
                         label={booking.status}
                         color={statusColors[booking.status]}
-                        size="medium"
+                        size="small"
                         variant="filled"
-                        sx={{
-                          minWidth: 'fit-content',
-                          '& .MuiChip-label': {
-                            overflow: 'visible',
-                            textOverflow: 'clip',
-                            whiteSpace: 'nowrap',
-                          },
-                        }}
                       />
-                    </Grid>
-                  </Grid>
-                </CardContent>
-              </Card>
-            ))}
-          </Stack>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
 
           {filteredBookings.length === 0 && (
             <Box sx={{ textAlign: 'center', paddingTop: '32px', paddingBottom: '32px' }}>
