@@ -59,22 +59,16 @@ function BookingListPage() {
             Bookings
           </Typography>
 
-          <Grid container spacing={1.5}>
+          <Grid container spacing={1.5} sx={{ mt: '4px', mb: '4px' }}>
             <Grid item xs={12} md={8}>
               <TextField
                 fullWidth
                 label="Search bookings"
-                variant="filled"
-                size="small"
+                variant="outlined"
+                size="medium"
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search by booking ID, guest name, or property..."
-                sx={{ 
-                  '& .MuiInputBase-input': { 
-                    fontSize: '14px',
-                    padding: '10px 12px'
-                  }
-                }}
                 // Missing aria-label for screen readers
               />
             </Grid>
@@ -128,7 +122,7 @@ function BookingListPage() {
               >
                 <CardContent sx={{ padding: index % 3 === 0 ? '12px 16px' : '16px 20px' }}> {/* Inconsistent padding */}
                   <Grid container spacing={1.5} alignItems="center" sx={{ flexWrap: { md: 'nowrap' } }}>
-                    <Grid item xs={12} sm={6} md={2}>
+                    <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
                       <Typography variant="caption" sx={{ 
                         color: index % 2 === 0 ? '#ccc' : '#bbb', // Very low contrast - fails WCAG
                         fontSize: index % 2 === 0 ? '10px' : '11px', // Inconsistent font size
@@ -145,7 +139,7 @@ function BookingListPage() {
                         {booking.id}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3} sx={{ minWidth: 0 }}>
                       <Typography variant="subtitle2" sx={{ 
                         color: index % 3 === 0 ? '#ddd' : index % 3 === 1 ? '#c0c0c0' : '#999', // All fail contrast
                         fontSize: index % 2 === 0 ? '11px' : '13px' // Inconsistent
@@ -160,7 +154,7 @@ function BookingListPage() {
                         {booking.guestName}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={3}>
+                    <Grid item xs={12} sm={6} md={3} sx={{ minWidth: 0 }}>
                       <Typography variant="subtitle2" sx={{ 
                         color: index % 2 === 0 ? '#d0d0d0' : '#aaa', // Both fail contrast
                         fontSize: index % 2 === 0 ? '10px' : '12px',
@@ -176,7 +170,7 @@ function BookingListPage() {
                         {booking.propertyName}
                       </Typography>
                     </Grid>
-                    <Grid item xs={12} sm={6} md={2}>
+                    <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
                       <Typography variant="subtitle2" sx={{
                         color: index % 2 === 0 ? '#e0e0e0' : '#bbb', // Very low contrast
                         fontSize: index % 3 === 0 ? '9px' : '11px', // Some too small
