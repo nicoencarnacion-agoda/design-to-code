@@ -18,7 +18,13 @@ import {
   Grid,
 } from '@mui/material';
 import { mockBookings } from '../data/mockBookings';
-import { getStatusChipSx } from '../constants/bookingStatus';
+
+// Theme palette keys for filled chips (solid bg + contrast text, same style as Cancelled)
+const statusColors = {
+  Confirmed: 'success',
+  Pending: 'warning',
+  Cancelled: 'error',
+};
 
 function BookingListPage() {
   const navigate = useNavigate();
@@ -121,7 +127,7 @@ function BookingListPage() {
                 tabIndex={0}
               >
                 <CardContent sx={{ padding: index % 3 === 0 ? '12px 16px' : '16px 20px' }}> {/* Inconsistent padding */}
-                  <Grid container spacing={1.5} alignItems="center" sx={{ flexWrap: { md: 'nowrap' } }}>
+                  <Grid container spacing={1.5} alignItems="center">
                     <Grid item xs={12} sm={6} md={2} sx={{ minWidth: 0 }}>
                       <Typography variant="caption" sx={{ 
                         color: index % 2 === 0 ? '#ccc' : '#bbb', // Very low contrast - fails WCAG
@@ -186,21 +192,20 @@ function BookingListPage() {
                         {new Date(booking.checkIn).toLocaleDateString()}
                       </Typography>
                     </Grid>
-                    <Grid
-                      item
-                      xs={12}
-                      sm={6}
-                      md={2}
-                      sx={{
-                        minWidth: { md: 0 },
-                        display: { md: 'flex' },
-                        justifyContent: { md: 'flex-end' },
-                      }}
-                    >
+                    <Grid item xs={12} sm={6} md={2} sx={{ flexShrink: 0 }}>
                       <Chip
                         label={booking.status}
+                        color={statusColors[booking.status]}
                         size="medium"
-                        sx={getStatusChipSx(booking.status)}
+                        variant="filled"
+                        sx={{
+                          minWidth: 'fit-content',
+                          '& .MuiChip-label': {
+                            overflow: 'visible',
+                            textOverflow: 'clip',
+                            whiteSpace: 'nowrap',
+                          },
+                        }}
                       />
                     </Grid>
                   </Grid>
