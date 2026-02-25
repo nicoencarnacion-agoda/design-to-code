@@ -4,9 +4,18 @@ A simple internal training React app for managing mock bookings. This is a front
 
 ## Features
 
-- **Booking List Page** (`/`) - View all bookings with search and filter functionality
+- **Dashboard** (`/`) - Overview with stats, revenue, and recent bookings
+- **Booking List Page** (`/bookings`) - View all bookings with search and filter functionality
 - **Booking Details Page** (`/booking/:id`) - View detailed booking information with action buttons
+- **Create Booking** (`/booking/new`) - Create a new booking via form
 - **Modify Booking Page** (`/booking/:id/edit`) - Edit booking details via form
+- **Properties** (`/properties`) - List properties with booking counts and revenue
+- **Guests** (`/guests`) - List guests with booking history
+- **Calendar** (`/calendar`) - View bookings on a calendar by check-in/check-out dates
+- **Reports** (`/reports`) - Analytics by status, property, and month
+- **Activity Log** (`/activity`) - Simulated audit trail of actions
+- **Settings** (`/settings`) - Display preferences (currency, date format) stored in localStorage
+- **Help** (`/help`) - FAQ and usage guide
 
 ## Tech Stack
 
@@ -99,14 +108,31 @@ npm run preview
 
 ```
 src/
+  ├── components/
+  │   └── Layout.jsx            # Shared layout with sidebar navigation
+  ├── context/
+  │   └── BookingsContext.jsx   # In-memory booking state (add/update)
+  ├── constants/
+  │   └── bookingStatus.js      # Status chip styles
   ├── data/
-  │   └── mockBookings.js      # Mock booking data
+  │   ├── mockBookings.js       # Mock booking data
+  │   └── mockActivityLog.js    # Mock activity log entries
   ├── pages/
-  │   ├── BookingListPage.jsx   # Main booking list with search/filter
-  │   ├── BookingDetailsPage.jsx # Booking details view
-  │   └── ModifyBookingPage.jsx  # Edit booking form
-  ├── App.jsx                   # Main app component with routing
-  └── main.jsx                  # Entry point
+  │   ├── DashboardPage.jsx
+  │   ├── BookingListPage.jsx
+  │   ├── BookingDetailsPage.jsx
+  │   ├── ModifyBookingPage.jsx
+  │   ├── CreateBookingPage.jsx
+  │   ├── PropertiesPage.jsx
+  │   ├── GuestsPage.jsx
+  │   ├── CalendarPage.jsx
+  │   ├── ReportsPage.jsx
+  │   ├── ActivityLogPage.jsx
+  │   ├── SettingsPage.jsx
+  │   ├── HelpPage.jsx
+  │   └── NotFoundPage.jsx
+  ├── App.jsx
+  └── main.jsx
 ```
 
 ## Mock Data
@@ -120,6 +146,6 @@ The app uses mock booking data stored in `src/data/mockBookings.js`. Each bookin
 ## Notes
 
 - This is a training app with no backend integration
-- All actions (Confirm, Cancel, Modify) are simulated and log to console
-- No actual state persistence - data resets on page refresh
+- All actions (Confirm, Cancel, Modify, Create) update in-memory state during the session
+- Data resets on page refresh (except Settings, which uses localStorage)
 - Uses MUI components and styling throughout
