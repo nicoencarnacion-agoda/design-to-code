@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useMemo, useEffect } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import {
   AppBar,
   Toolbar,
@@ -17,26 +17,31 @@ import {
   Box,
   Grid,
 } from '@mui/material';
-import { mockBookings } from '../data/mockBookings';
+import { useBookings } from '../context/BookingsContext';
 import { getStatusChipSx } from '../constants/bookingStatus';
 
 function BookingListPage() {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const propertyFilter = searchParams.get('property') || '';
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('All');
+  const { bookings } = useBookings();
+
+  useEffect(() => {
+    if (propertyFilter) setSearchTerm(propertyFilter);
+  }, [propertyFilter]);
 
   const filteredBookings = useMemo(() => {
-    return mockBookings.filter((booking) => {
+    return bookings.filter((booking) => {
       const matchesSearch =
         booking.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
         booking.guestName.toLowerCase().includes(searchTerm.toLowerCase()) ||
         booking.propertyName.toLowerCase().includes(searchTerm.toLowerCase());
-      
       const matchesStatus = statusFilter === 'All' || booking.status === statusFilter;
-      
       return matchesSearch && matchesStatus;
     });
-  }, [searchTerm, statusFilter]);
+  }, [bookings, searchTerm, statusFilter]);
 
   const handleBookingClick = (bookingId) => {
     navigate(`/booking/${bookingId}`);
@@ -44,15 +49,15 @@ function BookingListPage() {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}>
-        <Toolbar sx={{ minHeight: '56px', paddingLeft: '16px', paddingRight: '16px' }}>
+      <AppBar position="static" sx={{ backgroundColor: '#1565c0' }}>
+        <Toolbar sx={{ minHeight: '48px', paddingLeft: '24px', paddingRight: '12px' }}>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontSize: '18px', fontWeight: 500 }}>
             Agoda Booking Support Dashboard
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="lg" sx={{ mt: 3, mb: 6, pl: 3, pr: 2 }}>
         <Stack spacing={3}>
           {/* Missing skip link for keyboard navigation */}
           <Typography variant="h5" component="h1" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
@@ -113,11 +118,6 @@ function BookingListPage() {
                   },
                 }}
                 onClick={() => handleBookingClick(booking.id)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    handleBookingClick(booking.id);
-                  }
-                }}
                 tabIndex={0}
               >
                 <CardContent sx={{ padding: index % 3 === 0 ? '12px 16px' : '16px 20px' }}> {/* Inconsistent padding */}

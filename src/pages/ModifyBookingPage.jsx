@@ -18,12 +18,13 @@ import {
   InputLabel,
 } from '@mui/material';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { mockBookings } from '../data/mockBookings';
+import { useBookings } from '../context/BookingsContext';
 
 function ModifyBookingPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const booking = mockBookings.find((b) => b.id === id);
+  const { bookings, updateBooking } = useBookings();
+  const booking = bookings.find((b) => b.id === id);
 
   const [formData, setFormData] = useState({
     guestName: booking?.guestName || '',
@@ -40,12 +41,12 @@ function ModifyBookingPage() {
   if (!booking) {
     return (
       <Box>
-        <AppBar position="static">
-          <Toolbar>
+        <AppBar position="static" sx={{ backgroundColor: '#333' }}>
+          <Toolbar sx={{ minHeight: '50px' }}>
             <Button
               color="inherit"
               startIcon={<ArrowBackIcon />}
-              onClick={() => navigate('/')}
+              onClick={() => navigate(`/booking/${id}`)}
             >
               Back
             </Button>
@@ -70,42 +71,53 @@ function ModifyBookingPage() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Updated booking data:', {
-      id: booking.id,
-      ...formData,
+    const checkIn = new Date(formData.checkIn);
+    const checkOut = new Date(formData.checkOut);
+    const nights = Math.max(0, Math.ceil((checkOut - checkIn) / (1000 * 60 * 60 * 24)));
+    updateBooking(id, {
+      guestName: formData.guestName,
+      guestEmail: formData.guestEmail,
+      guestPhone: formData.guestPhone,
+      propertyName: formData.propertyName,
+      checkIn: formData.checkIn,
+      checkOut: formData.checkOut,
+      nights,
+      guests: parseInt(formData.guests, 10),
+      status: formData.status,
+      specialRequests: formData.specialRequests || null,
     });
-    alert('Booking updated! Check console for details.');
     navigate(`/booking/${id}`);
   };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar position="static" sx={{ backgroundColor: '#1976d2' }}>
-        <Toolbar sx={{ paddingLeft: '20px' }}>
+        <Toolbar sx={{ paddingLeft: '16px', paddingRight: '8px', minHeight: '58px' }}>
           <Button
             color="inherit"
-            startIcon={<ArrowBackIcon sx={{ fontSize: '18px' }} />}
+            startIcon={<ArrowBackIcon sx={{ fontSize: '20px' }} />}
             onClick={() => navigate(`/booking/${id}`)}
             size="medium"
+            sx={{ fontSize: '14px' }}
           >
             Back
           </Button>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 2, fontSize: '19px' }}>
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, ml: 4, fontSize: '17px', fontWeight: 300 }}>
             Modify Booking {booking.id}
           </Typography>
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="md" sx={{ mt: 3, mb: 3, paddingLeft: '16px', paddingRight: '16px' }}>
-        <Stack spacing={2.5}>
-          <Typography variant="h4" component="h1" sx={{ fontSize: '26px', fontWeight: 500, marginBottom: '4px' }}>
+      <Container maxWidth="md" sx={{ mt: 2, mb: 5, paddingLeft: '24px', paddingRight: '12px' }}>
+        <Stack spacing={3}>
+          <Typography variant="h4" component="h1" sx={{ fontSize: '28px', fontWeight: 700, marginBottom: '12px', letterSpacing: '-0.5px' }}>
             Edit Booking
           </Typography>
 
-          <Card component="form" onSubmit={handleSubmit} elevation={1} sx={{ borderRadius: '6px' }}>
-            <CardContent sx={{ padding: '24px' }}>
-              <Stack spacing={4}>
-                <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>Guest Information</Typography>
+          <Card component="form" onSubmit={handleSubmit} elevation={1} sx={{ borderRadius: '10px' }}>
+            <CardContent sx={{ padding: '20px 28px 24px 18px' }}>
+              <Stack spacing={5}>
+                <Typography variant="h6" sx={{ fontSize: '14px', fontWeight: 700, textTransform: 'lowercase', letterSpacing: '1px' }}>Guest Information</Typography>
                 <Grid container spacing={2.5}>
                   <Grid item xs={12} sm={6}>
                     <TextField
@@ -165,7 +177,7 @@ function ModifyBookingPage() {
                   </Grid>
                 </Grid>
 
-                <Typography variant="h6" sx={{ fontSize: '16px', fontWeight: 600 }}>Stay Details</Typography>
+                <Typography variant="h6" sx={{ fontSize: '15px', fontWeight: 500 }}>Stay Details</Typography>
                 <Grid container spacing={2}>
                   <Grid item xs={12}>
                     <TextField
@@ -265,7 +277,7 @@ function ModifyBookingPage() {
                   </Grid>
                 </Grid>
 
-                <Stack direction="row" spacing={2} sx={{ mt: 3, justifyContent: 'flex-end' }}>
+                <Stack direction="row" spacing={4} sx={{ mt: 4, justifyContent: 'flex-end', gap: '8px' }}>
                   <Button
                     variant="outlined"
                     onClick={() => navigate(`/booking/${id}`)}

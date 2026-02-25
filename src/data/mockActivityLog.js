@@ -1,0 +1,17 @@
+export const mockActivityLog = [
+  { id: 'A1', timestamp: '2024-01-15T09:30:00Z', action: 'Confirmed', bookingId: 'BK001', userName: 'Support Agent 1', details: 'Booking confirmed via phone' },
+  { id: 'A2', timestamp: '2024-01-05T14:22:00Z', action: 'Created', bookingId: 'BK002', userName: 'Guest', details: 'New reservation submitted' },
+  { id: 'A3', timestamp: '2023-12-21T11:15:00Z', action: 'Cancelled', bookingId: 'BK003', userName: 'Support Agent 2', details: 'Guest requested cancellation' },
+  { id: 'A4', timestamp: '2024-01-08T16:45:00Z', action: 'Confirmed', bookingId: 'BK004', userName: 'Support Agent 1', details: 'Early check-in arranged' },
+  { id: 'A5', timestamp: '2024-01-10T10:00:00Z', action: 'Created', bookingId: 'BK005', userName: 'Guest', details: 'Online booking' },
+  { id: 'A6', timestamp: '2024-01-12T09:30:00Z', action: 'Modified', bookingId: 'BK006', userName: 'Support Agent 2', details: 'Updated guest count' },
+  { id: 'A7', timestamp: '2024-01-03T08:20:00Z', action: 'Cancelled', bookingId: 'BK007', userName: 'Guest', details: 'Change of plans' },
+  { id: 'A8', timestamp: '2024-01-15T13:00:00Z', action: 'Created', bookingId: 'BK008', userName: 'Guest', details: 'Mobile app booking' },
+  { id: 'A9', timestamp: '2024-01-14T11:30:00Z', action: 'Modified', bookingId: 'BK002', userName: 'Support Agent 1', details: 'Extended stay by 2 nights' },
+  { id: 'A10', timestamp: '2024-01-16T15:45:00Z', action: 'Confirmed', bookingId: 'BK006', userName: 'Support Agent 2', details: 'Payment verified' },
+  { id: 'A11', timestamp: '2024-01-17T09:00:00Z', action: 'Modified', bookingId: 'BK001', userName: 'Support Agent 1', details: 'Late check-in time updated' },
+  { id: 'A12', timestamp: '2024-01-18T14:30:00Z', action: 'Confirmed', bookingId: 'BK005', userName: 'Support Agent 1', details: 'Extra bed added' },
+  { id: 'A13', timestamp: '2024-01-20T10:15:00Z', action: 'Modified', bookingId: 'BK004', userName: 'Support Agent 2', details: 'Room preference changed' },
+  { id: 'A14', timestamp: '2024-01-22T16:00:00Z', action: 'Cancelled', bookingId: 'BK008', userName: 'Guest', details: 'Duplicate booking' },
+  { id: 'A15', timestamp: '2024-01-25T11:45:00Z', action: 'Confirmed', bookingId: 'BK002', userName: 'Support Agent 1', details: 'Final confirmation sent' },
+];

@@ -4,26 +4,27 @@
  */
 export const STATUS_CHIP_STYLES = {
   Confirmed: {
-    backgroundColor: '#4caf50',
-    color: '#ffffff',
+    backgroundColor: '#66bb6a',
+    color: '#fff',
   },
   Pending: {
-    backgroundColor: '#ff9800',
+    backgroundColor: '#fb8c00',
     color: '#ffffff',
   },
   Cancelled: {
-    backgroundColor: '#f44336',
-    color: '#ffffff',
+    backgroundColor: '#e53935',
+    color: '#fff',
   },
 };
 
 export const getStatusChipSx = (status) => ({
   ...STATUS_CHIP_STYLES[status],
-  fontSize: '13px',
-  fontWeight: 500,
-  height: '32px',
+  fontSize: status === 'Pending' ? '12px' : '13px',
+  fontWeight: status === 'Cancelled' ? 600 : 500,
+  height: status === 'Confirmed' ? '30px' : '32px',
   whiteSpace: 'nowrap',
   overflow: 'visible',
+  borderRadius: status === 'Pending' ? '6px' : '16px',
   '& .MuiChip-label': {
     overflow: 'visible',
     whiteSpace: 'nowrap',
