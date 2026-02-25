@@ -71,7 +71,7 @@ function DashboardPage() {
           </Grid>
 
           <Card elevation={1} sx={{ borderRadius: '6px' }}>
-            <CardContent sx={{ padding: '18px 30px 22px 16px' }}>
+            <CardContent sx={{ padding: '24px 24px 22px 24px' }}>
               <Typography variant="h6" sx={{ fontSize: '17px', fontWeight: 500, marginBottom: '12px', color: '#555' }}>
                 Total Revenue (Confirmed)
               </Typography>
@@ -82,12 +82,34 @@ function DashboardPage() {
           </Card>
 
           <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', mt: 1 }}>
-            <Button variant="contained" onClick={() => navigate('/bookings')} sx={{ fontSize: '15px', px: 4 }}>
-              View All Bookings
-            </Button>
-            <Button variant="outlined" onClick={() => navigate('/booking/new')} sx={{ fontSize: '13px' }}>
-              Create New Booking
-            </Button>
+            <Box
+              component="span"
+              onClick={() => navigate('/bookings')}
+              sx={{
+                display: 'inline-block',
+                padding: '12px',
+                margin: '-12px',
+                cursor: 'pointer',
+              }}
+            >
+              <Button variant="contained" sx={{ fontSize: '15px', px: 4 }}>
+                View All Bookings
+              </Button>
+            </Box>
+            <Box
+              component="span"
+              onClick={() => navigate('/booking/new')}
+              sx={{
+                display: 'inline-block',
+                padding: '12px',
+                margin: '-12px',
+                cursor: 'pointer',
+              }}
+            >
+              <Button variant="outlined" sx={{ fontSize: '15px', px: 4 }}>
+                Create New Booking
+              </Button>
+            </Box>
             <Button variant="text" onClick={() => navigate('/reports')} sx={{ fontSize: '12px', color: '#999' }}>
               View Reports
             </Button>
