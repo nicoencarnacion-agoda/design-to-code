@@ -96,7 +96,7 @@ function BookingListPage() {
             </Grid>
           </Grid>
 
-          <Typography variant="body2" sx={{ color: '#999999', fontSize: '13px', marginTop: '8px', lineHeight: 1.2 }}>
+          <Typography variant="body2" sx={{ color: 'rgba(0, 0, 0, 1)', fontSize: '13px', marginTop: '8px', lineHeight: 1.2 }}>
             Showing {filteredBookings.length} booking(s)
           </Typography>
 
