@@ -52,7 +52,7 @@ function BookingListPage() {
         </Toolbar>
       </AppBar>
 
-      <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      <Container maxWidth="lg" sx={{ mt: 4, mb: 4, pl: 0 }}>
         <Stack spacing={3}>
           {/* Missing skip link for keyboard navigation */}
           <Typography variant="h5" component="h1" sx={{ fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px' }}>
@@ -60,7 +60,7 @@ function BookingListPage() {
           </Typography>
 
           <Grid container spacing={1.5} sx={{ mt: '4px', mb: '4px' }}>
-            <Grid item xs={12} md={8}>
+            <Grid item xs={12} md={8} sx={{ pl: 0 }}>
               <TextField
                 fullWidth
                 label="Search bookings"
@@ -69,10 +69,15 @@ function BookingListPage() {
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 placeholder="Search by booking ID, guest name, or property..."
+                sx={{
+                  '& .MuiInputBase-input': {
+                    textAlign: 'left',
+                  },
+                }}
                 // Missing aria-label for screen readers
               />
             </Grid>
-            <Grid item xs={12} md={4}>
+            <Grid item xs={12} md={4} sx={{ pl: 0 }}>
               <FormControl fullWidth>
                 <InputLabel>Status Filter</InputLabel>
                 <Select
